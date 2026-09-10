@@ -25,17 +25,22 @@ public class vectoraddition : MonoBehaviour
 
         if (Keyboard.current.rKey.isPressed)
         {
-            Debug.DrawLine(origin, rp, Color.red,5f);
+            Debug.DrawLine(origin, rp, Color.red);
         }
 
         if (Keyboard.current.bKey.isPressed)
         {
-            Debug.DrawLine(origin, bp, Color.blue,5f);
+            Debug.DrawLine(origin, bp, Color.blue);
         }
         if (Keyboard.current.rKey.isPressed && Keyboard.current.bKey.isPressed)
         {
-            Debug.DrawLine(origin, rPlusb, Color.magenta,5f);
+            Debug.DrawLine(origin, rPlusb, Color.magenta);
         }
+
+        float rbsize = Mathf .Sqrt(rPlusb.x * rPlusb.x + rPlusb.y *rPlusb.y);
+        Debug.Log(rbsize);
+
+        Vector2 fromrtob = btransform.position - rtransform.position;
 
     }
 }
