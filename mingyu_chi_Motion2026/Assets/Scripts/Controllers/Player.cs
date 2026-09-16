@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public float bs = 2;
     public int n = 3;
 
+    public float indistance = 2;
+
 
 
     void Update()
@@ -28,6 +30,11 @@ public class Player : MonoBehaviour
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
             spawnbomtrail(bs,n);
+        }
+
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            spawnbombonrandomcorner(indistance);
         }
     }
 
@@ -50,8 +57,17 @@ public class Player : MonoBehaviour
     }
 
 
-    public void spawnbombonrandomcorner(float d)
+    public void spawnbombonrandomcorner(float indistance)
     {
+        int x = Random.Range(0, 2) * 2 - 1;
+        int y = Random.Range(0, 2) * 2 - 1;
+
+        Vector3 bv = new Vector3(x, y, 0);
+
+        Vector3 bd = bv.normalized * indistance;
+
+        Spawnbombatoffset(bd);
+
 
     }
 
