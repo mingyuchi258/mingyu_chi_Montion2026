@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
 
     public void spawnbomtrail(float bs,int n)
     {
-        for (int i = 0; i <= n; i++)
+        for (int i = 1; i <= n; i++)
         {
             Vector3 bp = Bbmboffset * bs * i;
 
