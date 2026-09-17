@@ -10,13 +10,25 @@ public class Player : MonoBehaviour
     public GameObject bombPrefab;
     public Transform bombsTransform;
 
+    //task1
     public Vector3 AbombOffset = new Vector3(0, 1, 0);
 
     public Vector3 Bbmboffset = new Vector3(0, -1, 0);
     public float bs = 2;
     public int n = 3;
 
+    //task2
     public float indistance = 2;
+
+
+    //task3
+    public Transform target;
+
+    public float ratio = 0.5f;
+
+
+    //task4
+    public float maxrange = 5;
 
 
 
@@ -35,6 +47,11 @@ public class Player : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             spawnbombonrandomcorner(indistance);
+        }
+
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            warpplayer(target,ratio);
         }
     }
 
@@ -57,6 +74,9 @@ public class Player : MonoBehaviour
     }
 
 
+
+
+
     public void spawnbombonrandomcorner(float indistance)
     {
         int x = Random.Range(0, 2) * 2 - 1;
@@ -68,6 +88,25 @@ public class Player : MonoBehaviour
 
         Spawnbombatoffset(bd);
 
+
+    }
+
+
+
+
+
+    public void warpplayer(Transform target, float ratio)
+    {
+
+        transform.position = Vector3.Lerp(transform.position, target.position, ratio);
+    }
+
+
+
+
+
+    public void detectasteroids(float inrange, List<Transform>inasteroids)
+    {
 
     }
 
