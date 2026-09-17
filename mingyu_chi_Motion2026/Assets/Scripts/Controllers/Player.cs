@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 
     //task4
     public float maxrange = 5;
+    public List<Transform>asteroid = new List<Transform>();
 
 
 
@@ -52,6 +53,11 @@ public class Player : MonoBehaviour
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             warpplayer(target,ratio);
+        }
+
+        if (Keyboard.current.cKey.wasPressedThisFrame)
+        {
+            detectasteroids(maxrange, asteroid);
         }
     }
 
@@ -105,8 +111,17 @@ public class Player : MonoBehaviour
 
 
 
-    public void detectasteroids(float inrange, List<Transform>inasteroids)
+    public void detectasteroids(float inrange, List<Transform> inasteroids)
     {
+
+        for (int i = 0; i < inasteroids.Count; i++)
+        {
+
+            Transform asteroid = inasteroids[i];
+            Debug.DrawLine(transform.position, asteroid.position, Color.green);
+        }
+
+
 
     }
 
