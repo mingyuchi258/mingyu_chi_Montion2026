@@ -14,10 +14,13 @@ public class Player : MonoBehaviour
     public Vector3 AbombOffset = new Vector3(0, 1, 0);
 
     public Vector3 Bbmboffset = new Vector3(0, -1, 0);
+    //distance between the player and the bomb
     public float bs = 2;
+    //number of bomb
     public int n = 3;
 
     //task2
+    //specified distance
     public float indistance = 2;
 
 
@@ -63,6 +66,7 @@ public class Player : MonoBehaviour
 
     public void Spawnbombatoffset(Vector3 v)
     {
+        //bomb's position is the player's position plus offset
         Vector3 bombp = transform.position + v;
         Instantiate(bombPrefab, bombp, Quaternion.identity);
 
@@ -71,6 +75,7 @@ public class Player : MonoBehaviour
 
     public void spawnbomtrail(float bs,int n)
     {
+        //spawn a specified number of bombs at a specified distance
         for (int i = 1; i <= n; i++)
         {
             Vector3 bp = Bbmboffset * bs * i;
@@ -85,6 +90,8 @@ public class Player : MonoBehaviour
 
     public void spawnbombonrandomcorner(float indistance)
     {
+        //x=0*2-1=-1 or x=1*2-1=2-1=1
+        //y=0*2-1=-1 or y=1*2-1=2-1=1
         int x = Random.Range(0, 2) * 2 - 1;
         int y = Random.Range(0, 2) * 2 - 1;
 
@@ -118,7 +125,7 @@ public class Player : MonoBehaviour
         {
 
             Transform asteroid = inasteroids[i];
-            Debug.DrawLine(transform.position, asteroid.position, Color.green);
+            Debug.DrawLine(transform.position, asteroid.position, Color.green,2);
         }
 
 
