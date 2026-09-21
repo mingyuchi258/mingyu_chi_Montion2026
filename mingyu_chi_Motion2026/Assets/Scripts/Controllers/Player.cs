@@ -34,10 +34,35 @@ public class Player : MonoBehaviour
     public float maxrange = 5;
     public List<Transform>asteroid = new List<Transform>();
 
+    Vector3 r = Vector3.right;
+    Vector3 l = Vector3.left;
+    Vector3 u = Vector3.up;
+    Vector3 d = Vector3.down;
 
+    Vector3 currentvelocity;
+    public float speed;
+
+    public float accelerationtime;
+    public float currentacceleration;
+
+    public float maxspeed;
+
+
+
+    void Start()
+    {
+        currentacceleration = speed / accelerationtime;
+        //transform.position = warpPoint * Time.deltaTime;
+
+
+    }
 
     void Update()
     {
+
+        playermovement();
+        
+
         if (Keyboard.current.bKey.wasPressedThisFrame)
         {
             Spawnbombatoffset(AbombOffset);
@@ -62,6 +87,8 @@ public class Player : MonoBehaviour
         {
             detectasteroids(maxrange, asteroid);
         }
+
+        
     }
 
     public void Spawnbombatoffset(Vector3 v)
@@ -130,6 +157,43 @@ public class Player : MonoBehaviour
 
 
 
+    }
+
+
+
+    public void playermovement()
+    {
+
+        Vector3 accelerationdirection = Vector3.zero;
+
+        if (Keyboard.current.leftArrowKey.isPressed)
+        {
+            accelerationdirection += l;
+        }
+
+        if (Keyboard.current.rightArrowKey.isPressed)
+        {
+            accelerationdirection += r;
+        }
+
+        if (Keyboard.current.upArrowKey.isPressed)
+        {
+            accelerationdirection += u;
+        }
+
+        if (Keyboard.current.downArrowKey.isPressed)
+        {
+            accelerationdirection += d;
+        }
+        //ACCELERATION DIRECTION REPRESENTS THE DIRECTION WE ARE ACCELERATING
+        //WE NORMALIZE IT 
+        //AND THEN SET THE AMOUNT TO ACCELERATE BY:
+        currentvelocity += accelerationdirection.normalized * Time.deltaTime;
+        if (currentvelocity.magnitude > maxspeed)
+        {
+            currentvelocity = currentvelocity.normalized * maxspeed;
+        }
+        transform.position = transform.position + currentvelocity  * Time.deltaTime;
     }
 
 
