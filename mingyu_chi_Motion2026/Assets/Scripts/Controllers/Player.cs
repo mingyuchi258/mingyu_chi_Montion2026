@@ -47,6 +47,8 @@ public class Player : MonoBehaviour
 
     public float maxspeed;
 
+    public float deceleration = 2;
+
 
 
     void Start()
@@ -194,6 +196,14 @@ public class Player : MonoBehaviour
             currentvelocity = currentvelocity.normalized * maxspeed;
         }
         transform.position = transform.position + currentvelocity  * Time.deltaTime;
+
+        if (accelerationdirection == Vector3.zero)
+        {
+
+            float newSpeed = currentvelocity.magnitude - deceleration * Time.deltaTime;
+            currentvelocity = currentvelocity.normalized * newSpeed;
+
+        }
     }
 
 
