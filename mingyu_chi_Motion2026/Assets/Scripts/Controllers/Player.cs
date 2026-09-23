@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     public float maxrange = 5;
     public List<Transform>asteroid = new List<Transform>();
 
+
+    //task1
     Vector3 r = Vector3.right;
     Vector3 l = Vector3.left;
     Vector3 u = Vector3.up;
@@ -41,12 +43,12 @@ public class Player : MonoBehaviour
 
     Vector3 currentvelocity;
     public float speed;
-
+    //b
     public float accelerationtime;
     public float currentacceleration;
 
     public float maxspeed;
-
+    //c
     public float deceleration = 2;
 
 
@@ -196,7 +198,7 @@ public class Player : MonoBehaviour
             currentvelocity = currentvelocity.normalized * maxspeed;
         }
         transform.position = transform.position + currentvelocity  * Time.deltaTime;
-
+        //if the button is not being pressed, decelerate at the specified rate
         if (accelerationdirection == Vector3.zero)
         {
 
