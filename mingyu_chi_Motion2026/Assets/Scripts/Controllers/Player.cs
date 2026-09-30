@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -51,9 +53,11 @@ public class Player : MonoBehaviour
     //c
     public float deceleration = 2;
 
-
+    //week4 task1
     public Transform enemy;
 
+    //task2
+    public GameObject powerupPrefab;
 
 
     void Start()
@@ -66,6 +70,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (Keyboard.current.fKey.wasPressedThisFrame)
+        {
+            SpawnPowerups(3, 5);
+        }
 
         EnemyRadar(2, 8);
 
@@ -244,6 +252,18 @@ public class Player : MonoBehaviour
         }
 
 
+    }
+
+    public void SpawnPowerups(float radius, int number)
+    {
+        float angles = 360 / number;
+
+        for (int i = 0; i < number; i++)
+        {
+            float anglerad = angles * i * Mathf.Deg2Rad;
+            Vector3 direction = new Vector3(Mathf.Cos(anglerad), Mathf.Sin(anglerad), 0);
+            Instantiate(powerupPrefab, transform.position + direction * radius, Quaternion.identity);
+        }
     }
 
 
