@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
     public float deceleration = 2;
 
 
-    public List<float> angles;
+    public Transform enemy;
 
 
 
@@ -66,6 +66,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
+        EnemyRadar(2, 8);
 
         playermovement();
         
@@ -214,7 +216,35 @@ public class Player : MonoBehaviour
 
 
 
+    public void EnemyRadar(float radius, int circlePoints)
+    {
 
+
+        Color rcolor = Color.green;
+
+        float distance = Vector2.Distance(transform.position, enemy.position);
+        if (distance <= radius)
+        {
+            rcolor = Color.red;
+        }
+
+        for (int i = 0; i < circlePoints; i++)
+        {
+
+            float cangles = 360 / circlePoints;
+            float startangle = i * cangles * Mathf.Deg2Rad;
+            float endangle = (i + 1) * cangles * Mathf.Deg2Rad;
+
+            Vector3 direction1 = new Vector3(Mathf.Cos(startangle), Mathf.Sin(startangle), 0f);
+            Vector3 direction2 = new Vector3(Mathf.Cos(endangle), Mathf.Sin(endangle), 0f);
+
+            Vector3 point1 = transform.position + direction1 * radius;
+            Vector3 point2 = transform.position + direction2 * radius;
+            Debug.DrawLine(point1, point2, rcolor);
+        }
+
+
+    }
 
 
 }
