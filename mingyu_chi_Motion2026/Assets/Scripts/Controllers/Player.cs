@@ -52,6 +52,9 @@ public class Player : MonoBehaviour
     public float deceleration = 2;
 
 
+    public List<float> angles;
+
+
 
     void Start()
     {
@@ -207,6 +210,11 @@ public class Player : MonoBehaviour
 
         }
     }
+
+
+
+
+
 
 
 }
