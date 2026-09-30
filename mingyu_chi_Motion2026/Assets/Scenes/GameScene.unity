@@ -3112,6 +3112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d0f5692b49312748a4e2a3c9d95c50d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::moon
+  planet: {fileID: 28115705}
 --- !u!212 &1936909568
 SpriteRenderer:
   serializedVersion: 2
