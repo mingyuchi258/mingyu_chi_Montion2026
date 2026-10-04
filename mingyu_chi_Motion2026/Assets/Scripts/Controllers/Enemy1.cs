@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy1 : MonoBehaviour
 {
     public Transform player;
 
@@ -26,11 +26,7 @@ public class Enemy : MonoBehaviour
         {
             time = 0f;
 
-            makebomb(new Vector3(1f, 1f, 0f));
-            makebomb(new Vector3(1f, -1f, 0f));
-            makebomb(new Vector3(-1f, -1f, 0f));
-            makebomb(new Vector3(-1f, 1f, 0f));
-
+            shoot();
         }
     }
 
