@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
 
     //task4
     public float maxrange = 5;
-    public List<Transform>asteroid = new List<Transform>();
+    public List<Transform> asteroid = new List<Transform>();
 
 
     //task1
@@ -59,6 +59,15 @@ public class Player : MonoBehaviour
     //task2
     public GameObject powerupPrefab;
 
+    public GameObject lazer;
+
+
+
+    private bool enemyinradar = false;
+    private float rangle;
+
+    public float s = 5;
+
 
     void Start()
     {
@@ -75,10 +84,10 @@ public class Player : MonoBehaviour
             SpawnPowerups(3, 5);
         }
 
-        EnemyRadar(2, 8);
+        detectrotation();
 
         playermovement();
-        
+
 
         if (Keyboard.current.bKey.wasPressedThisFrame)
         {
@@ -87,17 +96,17 @@ public class Player : MonoBehaviour
 
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
-            spawnbomtrail(bs,n);
+            spawnbomtrail(bs, n);
         }
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            spawnbombonrandomcorner(indistance);
+            makelazer();
         }
 
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            warpplayer(target,ratio);
+            warpplayer(target, ratio);
         }
 
         if (Keyboard.current.cKey.wasPressedThisFrame)
@@ -105,7 +114,7 @@ public class Player : MonoBehaviour
             detectasteroids(maxrange, asteroid);
         }
 
-        
+
     }
 
     public void Spawnbombatoffset(Vector3 v)
@@ -117,7 +126,7 @@ public class Player : MonoBehaviour
     }
 
 
-    public void spawnbomtrail(float bs,int n)
+    public void spawnbomtrail(float bs, int n)
     {
         //spawn a specified number of bombs at a specified distance
         for (int i = 1; i <= n; i++)
@@ -169,7 +178,7 @@ public class Player : MonoBehaviour
         {
 
             Transform asteroid = inasteroids[i];
-            Debug.DrawLine(transform.position, asteroid.position, Color.green,2);
+            Debug.DrawLine(transform.position, asteroid.position, Color.green, 2);
         }
 
 
@@ -210,7 +219,7 @@ public class Player : MonoBehaviour
         {
             currentvelocity = currentvelocity.normalized * maxspeed;
         }
-        transform.position = transform.position + currentvelocity  * Time.deltaTime;
+        transform.position = transform.position + currentvelocity * Time.deltaTime;
         //if the button is not being pressed, decelerate at the specified rate
         if (accelerationdirection == Vector3.zero)
         {
@@ -233,7 +242,13 @@ public class Player : MonoBehaviour
         float distance = Vector2.Distance(transform.position, enemy.position);
         if (distance <= radius)
         {
+            enemyinradar = true;
+
             rcolor = Color.red;
+        }
+        else
+        {
+            enemyinradar = false;
         }
 
         for (int i = 0; i < circlePoints; i++)
@@ -264,6 +279,38 @@ public class Player : MonoBehaviour
             Vector3 direction = new Vector3(Mathf.Cos(anglerad), Mathf.Sin(anglerad), 0);
             Instantiate(powerupPrefab, transform.position + direction * radius, Quaternion.identity);
         }
+    }
+
+
+    public void rotatetowardsenemy(Vector2 direction)
+    {
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        rangle = angle - 90f;
+        float currentAngle = transform.eulerAngles.z;
+
+        float newAngle = Mathf.MoveTowardsAngle(currentAngle, rangle, s * Time.deltaTime);
+
+        transform.eulerAngles = new Vector3(0f, 0f, newAngle);
+    }
+
+
+    public void detectrotation()
+    {
+        EnemyRadar(7, 30);
+        if (enemyinradar == true)
+        {
+            Vector2 direction = enemy.position - transform.position;
+            rotatetowardsenemy(direction);
+        }
+    }
+
+
+
+    public void makelazer()
+    {
+        GameObject l = Instantiate(lazer,transform.position, transform.rotation);
+        lazer laserscript = l.GetComponent<lazer>();
+        laserscript.enemy = enemy;
     }
 
 

@@ -25,11 +25,18 @@ public class Enemy : MonoBehaviour
         if (time >= maxtime)
         {
             time = 0f;
-
-            makebomb(new Vector3(1f, 1f, 0f));
-            makebomb(new Vector3(1f, -1f, 0f));
-            makebomb(new Vector3(-1f, -1f, 0f));
-            makebomb(new Vector3(-1f, 1f, 0f));
+            int n = Random.Range(0, 2);
+            if (n == 0)
+            {
+                makebomb(new Vector3(1f, 1f, 0f));
+                makebomb(new Vector3(1f, -1f, 0f));
+                makebomb(new Vector3(-1f, -1f, 0f));
+                makebomb(new Vector3(-1f, 1f, 0f));
+            }
+            else
+            {
+                shoot();
+            }
 
         }
     }
