@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
         playerRB.linearVelocity = newVelocity;
     }
 
+
     public bool IsWalking()
     {
         return true;
