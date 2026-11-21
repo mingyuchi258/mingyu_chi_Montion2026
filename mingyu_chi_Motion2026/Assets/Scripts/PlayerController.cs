@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public float accelerationTime;
     private float acceleration;
 
+    public float deceleration;
+
     Vector3 currentVelocity;
 
     public enum FacingDirection
@@ -55,8 +57,17 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            //????
+            newVelocity.x = Mathf.MoveTowards(newVelocity.x, 0f, deceleration * Time.deltaTime);
         }
+        if (newVelocity.x > maxSpeed )
+        {
+            newVelocity.x = maxSpeed;
+        }
+        if (newVelocity.x < -maxSpeed )
+        {
+            newVelocity.x = -maxSpeed;
+        }
+
         playerRB.linearVelocity = newVelocity;
     }
 
