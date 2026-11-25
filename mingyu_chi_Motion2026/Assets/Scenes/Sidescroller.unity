@@ -1793,6 +1793,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   check: {fileID: 839166989}
+  terminalSpeed: 5
+  coyoteTime: 0.3
   apexHeight: 3
   apexTime: 1
 --- !u!4 &1433354315

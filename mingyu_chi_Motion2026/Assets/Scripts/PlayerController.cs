@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
     public Transform check;
 
 
+    public float terminalSpeed;
+
+    public float coyoteTime = 0.3f;
+    private float timer = 0f;
+
 
     Vector3 currentVelocity;
 
@@ -45,7 +50,7 @@ public class PlayerController : MonoBehaviour
         acceleration = maxSpeed / accelerationTime;
         //jump
         gravity = -2 * apexHeight / (apexTime * apexTime);
-        initialJumpVelocity = 2 * apexHeight * apexTime;
+        initialJumpVelocity = 2 * apexHeight / apexTime;
     }
 
 
@@ -71,9 +76,18 @@ public class PlayerController : MonoBehaviour
     {
 
         //if the player provide input for a jump, give them the initial
-        if (Keyboard.current.upArrowKey.wasPressedThisFrame && IsGrounded())
-        { 
-        wasJumpTriggered = true;
+        if (IsGrounded())
+        {
+            timer = coyoteTime;
+        }
+        else{
+            timer -= Time.deltaTime;
+        }
+
+        if(Keyboard.current.upArrowKey.wasPressedThisFrame && timer > 0f)
+        {
+                wasJumpTriggered = true;
+                timer = 0f;
         }
     }
 
@@ -90,8 +104,15 @@ public class PlayerController : MonoBehaviour
         if (wasJumpTriggered)
         {
             currentVelocity.y = initialJumpVelocity;
+            timer = 0f;
             wasJumpTriggered = false;
         }
+
+        if (currentVelocity.y < -terminalSpeed)
+        {
+            currentVelocity.y = -terminalSpeed;
+        }
+
         playerRB.linearVelocity = currentVelocity;
 
         //move
